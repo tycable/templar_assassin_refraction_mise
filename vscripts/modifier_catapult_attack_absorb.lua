@@ -7,6 +7,11 @@ function modifier_catapult_attack_absorb:DeclareFunctions()
 	return funcs
 end
 
+function modifier_catapult_attack:OnRefresh( kv )
+	self.bonus_damage=self:GetAbility():GetSpecialValueFor("bonus_damage")
+	self.duration=self:GetAbility():GetSpecialValueFor("duration")
+end
+
 function modifier_catapult_attack_absorb:OnCreated(kv)
 	self:SetStackCount(5)
 
