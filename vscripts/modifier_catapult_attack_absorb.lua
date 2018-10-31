@@ -8,7 +8,6 @@ function modifier_catapult_attack_absorb:DeclareFunctions()
 end
 
 function modifier_catapult_attack_absorb:OnCreated(kv)
-	self.count=5
 	self:SetStackCount(5)
 
 	if IsServer() then
@@ -22,11 +21,10 @@ function modifier_catapult_attack_absorb:OnTakeDamage(kv)
 	local caster=self:GetCaster()
 	if kv.attacker~=caster then	
 		self:DecrementStackCount()
-		self.count=self.count-1
 		caster:SetHealth(caster:GetHealth()+kv.damage)
 	end
 
-	if self.count==0 then
+	if self:GetStackCount()==0 then
 		self:GetCaster():RemoveModifierByName("modifier_catapult_attack_absorb")
 	end
 end
