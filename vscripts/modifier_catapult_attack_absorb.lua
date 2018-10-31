@@ -2,21 +2,9 @@ modifier_catapult_attack_absorb=class({})
 
 function modifier_catapult_attack_absorb:DeclareFunctions()
 	local funcs={
-		MODIFIER_PROPERTY_EVASION_CONSTANT,
-		MODIFIER_EVENT_ON_ATTACK,
+		MODIFIER_EVENT_ON_TAKEDAMAGE,
 	}
 	return funcs
-end
-
-function modifier_catapult_attack_absorb:GetModifierEvasion_Constant()
-	if self.count==0 then
-		self:GetCaster():RemoveModifierByName("modifier_catapult_attack_absorb")
-	end
-	if self.count<0 then
-		return 0
-	else
-		return 100
-	end
 end
 
 function modifier_catapult_attack_absorb:OnCreated(kv)
@@ -30,9 +18,15 @@ function modifier_catapult_attack_absorb:OnCreated(kv)
 	end
 end
 
-function modifier_catapult_attack_absorb:OnAttack(kv)
-	if kv.target==self:GetCaster() then
+function modifier_catapult_attack_absorb:OnTakeDamage(kv)
+	local caster=self:GetCaster()
+	if kv.attacker~=caster then	
 		self:DecrementStackCount()
 		self.count=self.count-1
+		caster:SetHealth(caster:GetHealth()+kv.damage)
+	end
+
+	if self.count==0 then
+		self:GetCaster():RemoveModifierByName("modifier_catapult_attack_absorb")
 	end
 end

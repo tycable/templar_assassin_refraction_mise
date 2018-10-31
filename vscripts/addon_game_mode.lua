@@ -13,6 +13,7 @@ function Precache( context )
 			PrecacheResource( "particle", "*.vpcf", context )
 			PrecacheResource( "particle_folder", "particles/folder", context )
 	]]
+	PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_announcer_dlc_lina.vsndevts", context )
 end
 
 -- Create the game mode when we activate
