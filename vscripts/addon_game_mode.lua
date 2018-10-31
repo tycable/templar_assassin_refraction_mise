@@ -37,7 +37,7 @@ function CAddonTemplateGameMode:OnThink()
 		if not PlayerResource:HasSelectedHero(0) then
 			local player=PlayerResource:GetPlayer(0)
 			if player then
-				CreateHeroForPlayer("npc_dota_hero_templar_assassin",player)
+				Tutorial:SelectHero("npc_dota_hero_templar_assassin")
 			end
 		end
 	elseif GameRules:State_Get() ==	DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then

@@ -15,8 +15,12 @@ function modifier_catapult_attack:OnRefresh( kv )
 end
 
 function modifier_catapult_attack:OnAttack(kv)
-	if kv.attacker==self:GetCaster() then
+	local caster=self:GetCaster()
+	if kv.attacker==caster then
 		self:DecrementStackCount()
+	end
+	if caster and self:GetStackCount() ==0 then
+		caster:RemoveModifierByName("modifier_catapult_attack")
 	end
 end
 
@@ -27,16 +31,8 @@ function modifier_catapult_attack:OnCreated( kv )
 	self.duration=self:GetAbility():GetSpecialValueFor("duration")
 end
 
-function modifier_catapult_attack:GetModifierPreAttack_BonusDamage( params )
-	local caster=self:GetCaster()
-	if self:GetStackCount()>0 then
-		return self.bonus_damage
-	else
-		if caster then
-			caster:RemoveModifierByName("modifier_catapult_attack")
-		end
-		return	0
-	end
+function modifier_catapult_attack:GetModifierPreAttack_BonusDamage( params )	
+	return self.bonus_damage
 end
 
 function modifier_catapult_attack:GetModifierMoveSpeedBonus_Percentage(params)
