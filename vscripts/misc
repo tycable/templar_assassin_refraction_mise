@@ -1,0 +1,17 @@
+--teleport
+casterPosGlobal=nil
+
+function teleport_1(params)
+	local endPos=params.target_points[1]
+	local casterPos=params.caster:GetAbsOrigin()
+	local distance=math.sqrt(math.pow((endPos-casterPos)[1],2)+math.pow((endPos-casterPos)[2],2))
+	if casterPos~=endPos and distance>150 then
+		casterPosGlobal=casterPos
+	else
+		casterPos=casterPosGlobal
+	end
+	local direction=endPos-casterPos
+	local startPos=params.target:GetAbsOrigin()
+	local pos=startPos+direction
+	FindClearSpaceForUnit( params.target, pos, true)
+end
