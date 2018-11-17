@@ -24,7 +24,7 @@ end
 
 function modifier_catapult_attack_absorb:OnTakeDamage(kv)
 	local caster=self:GetCaster()
-	if kv.attacker~=caster then	
+	if kv.unit==caster then	
 		self:DecrementStackCount()
 		caster:SetHealth(caster:GetHealth()+kv.damage)
 	end
